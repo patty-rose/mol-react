@@ -3,6 +3,7 @@ import AddPage from "./AddPage";
 import EditPageForm from "./EditPageForm";
 import PageList from "./PageList";
 import PageDetail from "./PageDetail";
+import MolPage from "./MolPages";
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc, query, orderBy } from "firebase/firestore";
 import db from '../firebase.js'
@@ -13,6 +14,7 @@ function PageControl(){
   const [mainPageList, setMainPageList] = useState([]);
   const [selectedPage, setSelectedPage] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [viewingPage, setViewingPage] = useState(false);
   const [error, setError] = useState(null);
 
   //useEffect hooks:
@@ -63,6 +65,10 @@ function PageControl(){
     setEditing(true);
   }
 
+  const handleViewPageClick = () => {
+    setViewingPage(true);
+  }
+
   const handleEditingPageInList = async (pageToEdit) => {
     const pageRef = doc(db, "pages", pageToEdit.id);
     await updateDoc(pageRef, pageToEdit);
@@ -79,16 +85,21 @@ function PageControl(){
 
   if (error) {
     currentlyVisibleState = <p>There was an error: {error}</p>
-  } else if (editing) {
+  } 
+  // else if (viewingPage){
+  //   currentlyVisibleState = <MolPage page = {selectedPage} />
+  // } 
+  else if (editing) {
     currentlyVisibleState = <EditPageForm 
     page = {selectedPage} 
     onEditPage = {handleEditingPageInList} />;
   } else if (selectedPage != null) {
-    currentlyVisibleState = currentlyVisibleState = 
+    currentlyVisibleState = 
     <PageDetail 
       page={selectedPage} 
       onClickingDelete={handleDeletingPage}
-      onClickingEdit = {handleEditClick} />;
+      onClickingEdit = {handleEditClick}
+      onClickingViewPage = {handleViewPageClick}  />;
       // buttonText = "Return to Page List";
   } else if (addPageVisible) {
     currentlyVisibleState = <AddPage onNewPageCreation={handleAddingNewPageToList}/>

@@ -12,8 +12,7 @@ function PageList(props){
           whenPageClicked={props.onPageSelection}
           pageText={page.pageText}
           backgroundImage={page.backgroundImage}
-          id={page.id}
-          key={page.id}/>
+          id={page.id}/>
       )}
     </React.Fragment>
   );
