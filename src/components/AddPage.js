@@ -8,7 +8,7 @@ function AddPage(props){
   function handleAddPageSubmission(event) {
     event.preventDefault();
     props.onNewPageCreation({
-      pageText: event.target.names.value, 
+      pageText: event.target.pageText.value, 
       backgroundImage: event.target.backgroundImage.value, 
     });
   }

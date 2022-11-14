@@ -12,7 +12,7 @@ function ReusableForm(props) {
         <input
           type='text'
           name='backgroundImage'
-          placeholder='Background Image' />
+          placeholder='Background Image:' />
         <button type='submit'>{props.buttonText}</button>
       </form>
     </React.Fragment>

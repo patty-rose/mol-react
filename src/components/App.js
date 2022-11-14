@@ -1,13 +1,17 @@
-import React from "react";
 import MolTitlePage from "./MolTitlePage";
-import AdminPage from"./AdminPage";
+import Admin from"./Admin";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 
 function App(){
+
+  //useState hooks:
+
+  
   return (
     <Router>
       <Routes>
-        <Route path="/AdminPage" element={<AdminPage />} />
+        <Route path="/Admin" element={<Admin />} />
         <Route path="/" element={<MolTitlePage />} />
       </Routes>
     </Router>
