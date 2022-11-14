@@ -1,5 +1,5 @@
 import MolTitlePage from "./MolTitlePage";
-import Admin from"./Admin";
+import PageControl from"./PageControl";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
@@ -11,7 +11,7 @@ function App(){
   return (
     <Router>
       <Routes>
-        <Route path="/Admin" element={<Admin />} />
+        <Route path="/Admin" element={<PageControl />} />
         <Route path="/" element={<MolTitlePage />} />
       </Routes>
     </Router>
