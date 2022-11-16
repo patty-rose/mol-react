@@ -1,13 +1,12 @@
-import React from "react";
+import { Link } from 'react-router-dom';
 
-function Navbar(){
-
-
+const Navbar = () => {
   return (
-    <React.Fragment>
-      <h1>Navbar</h1>
-    </React.Fragment>
+    <nav className='navbar'>
+      <Link to='/'>Enter Site</Link>
+      <Link to='/admin'>Admin Home</Link>
+      <Link to='/admin/addPage'>Add Page</Link>
+    </nav>
   );
-}
-
+};
 export default Navbar;
