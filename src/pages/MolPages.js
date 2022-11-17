@@ -1,50 +1,25 @@
-import React, { useParams } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from 'styled-components';
 import benchImg from '../img/bench.png';
+import { Link, useParams } from "react-router-dom";
+import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc, query, orderBy } from "firebase/firestore";
+import db from '../firebase.js';
 
-function MolPages(props){
-  // const { page } = props; 
+function MolPages( {mainPageList} ){
 
-  const { page } = useParams();
-
-  // const handleProceed = (e) => {
-  //   history.push(`/MolPages/${id}`);
-  // };
-
-  const Container = styled.section`
-  backgroundImage: url(${benchImg};
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: absolute;
-  height: 100vh; 
-  width: 100vw;
-  background-position: center; 
-`;
-
-const MolTitle = styled.h1`
-color: red;
-`;
-
-const MolText = styled.p`
-color: red;
-`;
+  const { thisPageNumber } = useParams();
+  const numPageNum = parseInt(thisPageNumber);
+  const thisPage = mainPageList.find((page) => page.pageNumber === numPageNum);
 
   return (
-    <Container>
-    <MolTitle>
-    {page.backgroundImage}
-      </MolTitle>
-    <MolText>
-      {page.pageText}
-    </MolText>
-    {/* <Link to="/Mol1">Enter</Link> */}
-</Container>
+    <>
+      <p>{thisPage.backgroundImage}</p>
+      <p>{thisPage.pageText}</p>
+      <Link to={`/MolPages/${numPageNum - 1}`}>Go this way!</Link>
+      <Link to={`/MolPages/${numPageNum + 1}`}>Go that way!</Link>
+    </>
   );
 }
-
-MolPages.propTypes = {
-  page: PropTypes.object,
-};
 
 export default MolPages;

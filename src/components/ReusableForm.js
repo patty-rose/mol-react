@@ -13,6 +13,10 @@ function ReusableForm(props) {
           type='text'
           name='backgroundImage'
           placeholder='Background Image:' />
+          <input
+          type='number'
+          name='pageNumber'
+          placeholder='Page Number:' />
         <button type='submit'>{props.buttonText}</button>
       </form>
     </React.Fragment>

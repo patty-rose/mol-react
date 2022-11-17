@@ -30,7 +30,7 @@ function MolTitlePage() {
         <MolText>
           Live your desires and reverse the shame thrust on you by those fearful of exploration
         </MolText>
-        <Link to="/Mol1">Enter</Link>
+        <Link to="/MolPages/1">Enter</Link>
     </Container>
   );
 }

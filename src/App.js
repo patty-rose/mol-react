@@ -10,6 +10,7 @@ import Error from './pages/Error';
 import PageDetail from './pages/PageDetail';
 import PageList from './pages/PageList';
 import AddPage from './pages/AddPage';
+import EditPage from './pages/EditPage';
 
 function App(){
 
@@ -20,12 +21,36 @@ function App(){
   const [editing, setEditing] = useState(false);
   const [viewingPage, setViewingPage] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const unSubscribe = onSnapshot(
+      collection(db, 'pages'),
+      (collectionSnapshot) => {
+        const pages = [];
+        collectionSnapshot.forEach((doc) => {
+          pages.push({
+            pageText: doc.data().pageText,
+            backgroundImage: doc.data().backgroundImage,
+            pageNumber: doc.data().pageNumber,
+            id: doc.id,
+          });
+        });
+        setMainPageList(pages);
+      },
+      (error) => {
+        //add more
+      }
+    );
+    return () => unSubscribe();
+  }, []);
+
+  console.log(mainPageList);
   
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MolTitlePage />} />
-        <Route path="/MolPages/:id" element={<MolPages />} />
+        <Route path="/MolPages/:thisPageNumber" element={<MolPages mainPageList = {mainPageList}/>} />
 
         <Route 
           path="/admin" 
@@ -33,7 +58,8 @@ function App(){
 
           <Route index element={<PageList mainPageList = {mainPageList} setMainPageList = {setMainPageList} selectedPage = {selectedPage} setSelectedPage = {setSelectedPage} />} />
           <Route path='AddPage' element={<AddPage />} />
-          <Route path='details' element={<PageDetail />} />
+          <Route path='details/:thisPageId' element={<PageDetail mainPageList = {mainPageList} />}/>
+          <Route path='editPage/:thisPageId' element={<EditPage mainPageList = {mainPageList} />}/>
 
         </Route>
 

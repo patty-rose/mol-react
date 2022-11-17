@@ -2,7 +2,8 @@ import Page from "../components/Page";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc, query, orderBy } from "firebase/firestore";
-import db from '../firebase.js'
+import db from '../firebase.js';
+import { Link } from 'react-router-dom';
 
 function PageList({ mainPageList, setMainPageList, selectedPage, setSelectedPage }){
 
@@ -11,27 +12,6 @@ function PageList({ mainPageList, setMainPageList, selectedPage, setSelectedPage
     setSelectedPage(selection);
   }
 
-  useEffect(() => {
-    const unSubscribe = onSnapshot(
-      collection(db, 'pages'),
-      (collectionSnapshot) => {
-        const pages = [];
-        collectionSnapshot.forEach((doc) => {
-          pages.push({
-            pageText: doc.data().pageText,
-            backgroundImage: doc.data().backgroundImage,
-            id: doc.id
-          });
-        });
-        setMainPageList(pages);
-      },
-      (error) => {
-        //add more
-      }
-    );
-    return () => unSubscribe();
-  }, []);
-
   return (
     <React.Fragment>
       <hr/>
@@ -39,8 +19,10 @@ function PageList({ mainPageList, setMainPageList, selectedPage, setSelectedPage
         <Page 
           whenPageClicked={handleChangingSelectedPage}
           pageText={page.pageText}
-          backgroundImage={page.backgroundImage}
-          id={page.id}/>
+          backgroundImage={page.backgroundImage} 
+          pageNumber={page.pageNumber}
+          id={page.id}
+          key={page.id}/>
       )}
     </React.Fragment>
   );
